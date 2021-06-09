@@ -1,4 +1,6 @@
 import React from 'react';
+import {Link} from 'react-router-dom';
+import {AppRoute} from '../../../const';
 
 function Card() {
   return (
@@ -7,7 +9,7 @@ function Card() {
         <span>Premium</span>
       </div>
       <div className="cities__image-wrapper place-card__image-wrapper">
-        <a href="#">
+        <Link to={AppRoute.OFFER}>
           <img
             className="place-card__image"
             src="img/apartment-01.jpg"
@@ -15,7 +17,7 @@ function Card() {
             height={200}
             alt="Place image"
           />
-        </a>
+        </Link>
       </div>
       <div className="place-card__info">
         <div className="place-card__price-wrapper">
