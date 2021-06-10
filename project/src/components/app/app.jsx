@@ -1,5 +1,5 @@
 import React from 'react';
-import {BrowserRouter, Route, Switch} from "react-router-dom";
+import {BrowserRouter, Route, Switch} from 'react-router-dom';
 import {AppRoute} from '../../const';
 import MainPage from '../pages/main/main';
 import LoginPage from '../pages/login/login';
