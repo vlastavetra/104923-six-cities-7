@@ -13,8 +13,8 @@ function Card() {
           <img
             className="place-card__image"
             src="img/apartment-01.jpg"
-            width={260}
-            height={200}
+            width="260"
+            height="200"
             alt="Place image"
           />
         </Link>
@@ -28,8 +28,8 @@ function Card() {
           <button className="place-card__bookmark-button button" type="button">
             <svg
               className="place-card__bookmark-icon"
-              width={18}
-              height={19}
+              width="18"
+              height="19"
             >
               <use xlinkHref="#icon-bookmark"></use>
             </svg>
