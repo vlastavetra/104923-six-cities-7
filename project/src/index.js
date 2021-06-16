@@ -1,9 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './components/app/app';
+import offers from './mocks/offers';
+import reviews from './mocks/reviews';
 
 const Setting = {
-  PLACES_COUNT: 312,
   CITIES: ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'],
   CARDS_COUNT: 5,
 };
@@ -11,9 +12,10 @@ const Setting = {
 ReactDOM.render(
   <React.StrictMode>
     <App
-      placesCount={Setting.PLACES_COUNT}
       cities={Setting.CITIES}
       cardsCount={Setting.CARDS_COUNT}
+      offers={offers}
+      reviews={reviews}
     />
   </React.StrictMode>,
   document.getElementById('root'));

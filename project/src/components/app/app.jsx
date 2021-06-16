@@ -8,27 +8,30 @@ import FavoritePage from '../pages/favorites/favorites';
 import NotFoundPage from '../pages/404/404';
 import PropTypes from 'prop-types';
 
-function App(props) {
-  const {placesCount, cities, cardsCount} = props;
-
+function App({cities, cardsCount, offers, reviews}) {
   return (
     <BrowserRouter>
       <Switch>
         <Route path="/" exact>
           <MainPage
-            placesCount={placesCount}
             cities={cities}
             cardsCount={cardsCount}
+            offers={offers}
           />
         </Route>
         <Route path={AppRoute.LOGIN} exact>
           <LoginPage/>
         </Route>
         <Route path={AppRoute.OFFER} exact>
-          <OfferPage/>
+          <OfferPage
+            offers={offers}
+            reviews={reviews}
+          />
         </Route>
         <Route path={AppRoute.FAVORITES} exact>
-          <FavoritePage/>
+          <FavoritePage
+            offers={offers}
+          />
         </Route>
         <Route>
           <NotFoundPage />
@@ -39,9 +42,10 @@ function App(props) {
 }
 
 App.propTypes = {
-  placesCount: PropTypes.number.isRequired,
   cities: PropTypes.arrayOf(PropTypes.string),
   cardsCount: PropTypes.number.isRequired,
+  offers: PropTypes.arrayOf(PropTypes.object),
+  reviews: PropTypes.arrayOf(PropTypes.object),
 };
 
 export default App;

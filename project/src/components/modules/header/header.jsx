@@ -39,7 +39,7 @@ function Header(props) {
 }
 
 Header.propTypes = {
-  pageType: PropTypes.string.isRequired,
+  pageType: PropTypes.string,
 };
 
 export default Header;

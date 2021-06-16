@@ -1,12 +1,11 @@
 import React from 'react';
 import Header from '../../modules/header/header';
-import Card from '../../modules/card/card';
+import OffersList from '../../modules/offersList/offersList';
 import PropTypes from 'prop-types';
 
-function Main(props) {
-  const {placesCount, cities, cardsCount} = props;
-  const cards = new Array(placesCount).fill('').map((value, index) => ({id: value + index}));
+function Main({cities, cardsCount = 3, offers}) {
   const defaultCity = 'Amsterdam';
+  const placesCount = offers.length;
 
   return (
     <div className="page page--gray page--main">
@@ -49,9 +48,11 @@ function Main(props) {
                   <li className="places__option" tabIndex="0">Top rated first</li>
                 </ul>
               </form>
-              <div className="cities__places-list places__list tabs__content">
-                { cards.slice(0, cardsCount).map((card) => <Card key={card.id}/>)}
-              </div>
+              <OffersList
+                page='main'
+                cardsCount={cardsCount}
+                offers={offers}
+              />
             </section>
             <div className="cities__right-section">
               <section className="cities__map map"></section>
@@ -64,9 +65,9 @@ function Main(props) {
 }
 
 Main.propTypes = {
-  placesCount: PropTypes.number.isRequired,
   cities: PropTypes.arrayOf(PropTypes.string),
   cardsCount: PropTypes.number.isRequired,
+  offers: PropTypes.arrayOf(PropTypes.object),
 };
 
 export default Main;
