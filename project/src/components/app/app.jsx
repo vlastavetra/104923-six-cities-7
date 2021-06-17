@@ -46,8 +46,8 @@ function App({cities, cardsCount, offers, reviews}) {
 App.propTypes = {
   cities: PropTypes.arrayOf(PropTypes.string),
   cardsCount: PropTypes.number.isRequired,
-  offers: PropTypes.arrayOf(offerProp),
-  reviews: PropTypes.arrayOf(reviewProp),
+  offers: PropTypes.arrayOf(offerProp).isRequired,
+  reviews: PropTypes.arrayOf(reviewProp).isRequired,
 };
 
 export default App;
