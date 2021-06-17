@@ -7,6 +7,8 @@ import OfferPage from '../pages/offer/offer';
 import FavoritePage from '../pages/favorites/favorites';
 import NotFoundPage from '../pages/404/404';
 import PropTypes from 'prop-types';
+import offerProp from '../modules/offer/offer.prop';
+import reviewProp from '../modules/review/review.prop';
 
 function App({cities, cardsCount, offers, reviews}) {
   return (
@@ -44,8 +46,8 @@ function App({cities, cardsCount, offers, reviews}) {
 App.propTypes = {
   cities: PropTypes.arrayOf(PropTypes.string),
   cardsCount: PropTypes.number.isRequired,
-  offers: PropTypes.arrayOf(PropTypes.object),
-  reviews: PropTypes.arrayOf(PropTypes.object),
+  offers: PropTypes.arrayOf(offerProp),
+  reviews: PropTypes.arrayOf(reviewProp),
 };
 
 export default App;
