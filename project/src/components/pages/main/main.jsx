@@ -1,7 +1,8 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Header from '../../modules/header/header';
 import OffersList from '../../modules/offersList/offersList';
-import PropTypes from 'prop-types';
+import Map from '../../modules/map/map';
 
 function Main({cities, cardsCount = 3, offers}) {
   const defaultCity = 'Amsterdam';
@@ -55,7 +56,9 @@ function Main({cities, cardsCount = 3, offers}) {
               />
             </section>
             <div className="cities__right-section">
-              <section className="cities__map map"></section>
+              <Map
+                offers={offers}
+              />
             </div>
           </div>
         </div>
