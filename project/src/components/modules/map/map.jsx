@@ -3,52 +3,55 @@ import PropTypes from 'prop-types';
 import offerProp from '../offer/offer.prop';
 import leaflet from 'leaflet';
 import 'leaflet/dist/leaflet.css';
+import useMap from '../../../hooks/useMap';
+
+const DEFAULT_ICON = 'img/pin.svg';
+const CURREN_ICON = 'img/pin-active.svg';
+const ICON_SIZE = [30, 30];
+const ICON_ANCHOR = [15, 30];
+
+const defaultCustomIcon = leaflet.icon({
+  iconUrl: DEFAULT_ICON,
+  iconSize: ICON_SIZE,
+  iconAnchor: ICON_ANCHOR,
+});
+
+const currentCustomIcon = leaflet.icon({
+  iconUrl: CURREN_ICON,
+  iconSize: ICON_SIZE,
+  iconAnchor: ICON_ANCHOR,
+});
 
 function Map(props) {
-  const {offers} = props;
-  const mapRef = useRef();
+  const {offers, selectedPoint} = props;
+  const mapRef = useRef(null);
   const city = offers[0].city.location;
-  const customIcon = leaflet.icon({
-    iconUrl: 'img/pin.svg',
-    iconSize: [30, 30],
-    iconAnchor: [15, 30],
-  });
+  const map = useMap(mapRef, city);
 
   useEffect(() => {
-    mapRef.current = leaflet.map('map', {
-      center: {
-        lat: city.latitude,
-        lng: city.longitude,
-      },
-      zoom: city.zoom,
-      zoomControl: false,
-      marker: true,
-    });
-
-    leaflet
-      .tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
-      })
-      .addTo(mapRef.current);
-
-    offers.forEach((offer) => {
-      leaflet
-        .marker(
-          {
-            lat: offer.location.latitude,
-            lng: offer.location.longitude,
-          },
-          {
-            icon: customIcon,
-          },
-        )
-        .addTo(mapRef.current);
-    });
-  });
+    if (map) {
+      offers.forEach((offer) => {
+        leaflet
+          .marker(
+            {
+              lat: offer.location.latitude,
+              lng: offer.location.longitude,
+            },
+            {
+              icon: (offer.id === selectedPoint.id)
+                ? currentCustomIcon
+                : defaultCustomIcon,
+            },
+          )
+          .addTo(map);
+      });
+    }
+  }, [map, offers, selectedPoint]);
 
   return (
     <section
       ref={mapRef}
+      style={{height: '100%'}}
       id='map'
       className='cities__map map'
     />
@@ -57,6 +60,7 @@ function Map(props) {
 
 Map.propTypes = {
   offers: PropTypes.arrayOf(offerProp).isRequired,
+  selectedPoint: PropTypes.number,
 };
 
 export default Map;

@@ -1,10 +1,9 @@
-import React, {useState} from 'react';
+import React from 'react';
 import Offer from '../../modules/offer/offer';
 import PropTypes from 'prop-types';
 
 function OffersList (props) {
-  const {page, offers} = props;
-  const [activeOffer, setActiveOffer] = useState(null);
+  const {page, offers, onListItemHover} = props;
 
   const getClassByPage = (el) => {
     switch (el) {
@@ -23,11 +22,10 @@ function OffersList (props) {
     <div className={`${getClassByPage(page)} places__list`}>
       { offers.map((offer) => (
         <Offer
+          onListItemHover={onListItemHover}
           page={page}
           key={offer.id}
           offer={offer}
-          handleMouseEnter={() => {setActiveOffer({...activeOffer, ...offer.id});}}
-          handleMouseOut={() => {setActiveOffer(null);}}
         />
       ))}
     </div>
@@ -37,6 +35,7 @@ function OffersList (props) {
 OffersList.propTypes = {
   offers: PropTypes.arrayOf(PropTypes.object).isRequired,
   page: PropTypes.string.isRequired,
+  onListItemHover: PropTypes.func,
 };
 
 export default OffersList;

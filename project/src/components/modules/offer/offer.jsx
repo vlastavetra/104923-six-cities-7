@@ -5,7 +5,7 @@ import offerProp from './offer.prop';
 import PropTypes from 'prop-types';
 
 function Offer(props) {
-  const {page, offer} = props;
+  const {page, offer, onListItemHover} = props;
   const {
     is_premium: isPremium,
     is_favorite: isFavorite,
@@ -15,6 +15,10 @@ function Offer(props) {
     title,
     type,
   } = offer;
+
+  const itemHoverHandler = (evt) => {
+    onListItemHover(offer.id);
+  };
 
   const getClassByPage = (el) => {
     switch (el) {
@@ -32,7 +36,7 @@ function Offer(props) {
   const getStars = () => (rating / MAX_STARS) * 100;
 
   return (
-    <article className={`${getClassByPage(page)} place-card`}>
+    <article onMouseMove={itemHoverHandler} className={`${getClassByPage(page)} place-card`}>
       { isPremium &&
         <div className="place-card__mark">
           <span>Premium</span>
@@ -89,6 +93,7 @@ function Offer(props) {
 Offer.propTypes = {
   offer: offerProp,
   page: PropTypes.string.isRequired,
+  onListItemHover: PropTypes.func,
 };
 
 export default Offer;
