@@ -1,6 +1,8 @@
 import React from 'react';
+import cx from 'classnames';
 import {Link} from 'react-router-dom';
-import {MAX_STARS, PlaceType} from '../../../const';
+import {PlaceType} from '../../../const';
+import {getStars} from '../../../utils';
 import offerProp from './offer.prop';
 import PropTypes from 'prop-types';
 
@@ -16,38 +18,33 @@ function Offer(props) {
     type,
   } = offer;
 
-  const itemHoverHandler = (evt) => {
-    onListItemHover(offer.id);
-  };
+  const itemClasses = cx('place-card', {
+    'cities__place-card': page === 'main',
+    'near-places__card': page === 'offer',
+    'favorites__card': page === 'favorites',
+  },
+  );
 
-  const getClassByPage = (el) => {
-    switch (el) {
-      case 'main':
-        return 'cities__place-card';
-      case 'offer':
-        return 'near-places__card';
-      case 'favorites':
-        return 'favorites__card';
-      default: break;
-    }
-    return '';
-  };
-
-  const getStars = () => (rating / MAX_STARS) * 100;
+  const imgClasses = cx('place-card__image-wrapper', {
+    'cities__image-wrapper': page === 'main',
+    'near-places__image-wrapper': page === 'offer',
+    'favorites__image-wrapper': page === 'favorites',
+  },
+  );
 
   return (
-    <article onMouseMove={itemHoverHandler} className={`${getClassByPage(page)} place-card`}>
+    <article onMouseMove={(evt) => evt && onListItemHover(offer.id)} className={itemClasses}>
       { isPremium &&
         <div className="place-card__mark">
           <span>Premium</span>
         </div>}
-      <div className="cities__image-wrapper place-card__image-wrapper">
+      <div className={imgClasses}>
         <Link to={`/offer/${offer.id}`}>
           <img
             className="place-card__image"
             src={previewImage}
-            width="260"
-            height="200"
+            width={ page === 'favorites' ? '150' : '260'}
+            height={ page === 'favorites' ? '110' : '200'}
             alt={title}
           />
         </Link>
@@ -75,7 +72,7 @@ function Offer(props) {
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{width: `${getStars()}%`}}></span>
+            <span style={{width: `${getStars(rating)}%`}}></span>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>

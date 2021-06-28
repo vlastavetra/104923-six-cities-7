@@ -25,8 +25,8 @@ const currentCustomIcon = leaflet.icon({
 function Map(props) {
   const {offers, selectedPoint} = props;
   const mapRef = useRef(null);
-  const city = offers[0].city.location;
-  const map = useMap(mapRef, city);
+  const cityLocation = offers[0].city.location;
+  const map = useMap(mapRef, cityLocation);
 
   useEffect(() => {
     if (map) {
@@ -49,11 +49,10 @@ function Map(props) {
   }, [map, offers, selectedPoint]);
 
   return (
-    <section
+    <div
       ref={mapRef}
       style={{height: '100%'}}
       id='map'
-      className='cities__map map'
     />
   );
 }

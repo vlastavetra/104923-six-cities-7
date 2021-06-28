@@ -68,10 +68,12 @@ function Main(props) {
               />
             </section>
             <div className="cities__right-section">
-              <Map
-                offers={offers}
-                selectedPoint={selectedPoint}
-              />
+              <section className='cities__map map'>
+                <Map
+                  offers={offers}
+                  selectedPoint={selectedPoint}
+                />
+              </section>
             </div>
           </div>
         </div>

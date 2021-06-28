@@ -32,7 +32,7 @@ function App({cities, cardsCount, offers, reviews}) {
         </Route>
         <Route path={AppRoute.FAVORITES} exact>
           <FavoritePage
-            offers={offers}
+            offers={offers.filter((el) => el.is_favorite === true)}
           />
         </Route>
         <Route>
