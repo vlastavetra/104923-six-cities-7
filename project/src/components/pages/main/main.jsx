@@ -1,11 +1,23 @@
-import React from 'react';
+import React, {useState} from 'react';
+import PropTypes from 'prop-types';
 import Header from '../../modules/header/header';
 import OffersList from '../../modules/offersList/offersList';
-import PropTypes from 'prop-types';
+import Map from '../../modules/map/map';
 
-function Main({cities, cardsCount = 3, offers}) {
+function Main(props) {
+  const {cities, cardsCount = 3, offers} = props;
+
   const defaultCity = 'Amsterdam';
   const placesCount = offers.length;
+
+  const [selectedPoint, setSelectedPoint] = useState(0);
+
+  const onListItemHover = (listItemName) => {
+    const currentPoint = offers.find((offer) =>
+      offer.id === listItemName,
+    );
+    setSelectedPoint(currentPoint);
+  };
 
   return (
     <div className="page page--gray page--main">
@@ -52,10 +64,14 @@ function Main({cities, cardsCount = 3, offers}) {
                 page='main'
                 cardsCount={cardsCount}
                 offers={offers}
+                onListItemHover={onListItemHover}
               />
             </section>
             <div className="cities__right-section">
-              <section className="cities__map map"></section>
+              <Map
+                offers={offers}
+                selectedPoint={selectedPoint}
+              />
             </div>
           </div>
         </div>
