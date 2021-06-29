@@ -1,25 +1,20 @@
 import React from 'react';
+import cx from 'classnames';
 import Offer from '../../modules/offer/offer';
 import PropTypes from 'prop-types';
 
 function OffersList (props) {
   const {page, offers, onListItemHover} = props;
 
-  const getClassByPage = (el) => {
-    switch (el) {
-      case 'main':
-        return 'cities__places-list tabs__content';
-      case 'offer':
-        return 'near-places__list';
-      case 'favorites':
-        return 'favorites__places';
-      default: break;
-    }
-    return 'cities__places-list tabs__content';
-  };
+  const listClasses = cx('places__list', {
+    'cities__places-list tabs__content': page === 'main',
+    'near-places__list': page === 'offer',
+    'favorites__places': page === 'favorites',
+  },
+  );
 
   return (
-    <div className={`${getClassByPage(page)} places__list`}>
+    <div className={listClasses}>
       { offers.map((offer) => (
         <Offer
           onListItemHover={onListItemHover}

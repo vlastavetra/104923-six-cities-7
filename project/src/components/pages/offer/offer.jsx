@@ -1,9 +1,11 @@
-import React from 'react';
+import React, {useState} from 'react';
 import Header from '../../modules/header/header';
 import Form from '../../modules/form/form';
 import OffersList from '../../modules/offersList/offersList';
 import ReviewList from '../../modules/reviewList/reviewList';
-import {MAX_STARS, PlaceType} from '../../../const';
+import Map from '../../modules/map/map';
+import {PlaceType} from '../../../const';
+import {getStars} from '../../../utils';
 import PropTypes from 'prop-types';
 
 function Offer(props) {
@@ -23,7 +25,14 @@ function Offer(props) {
     description,
   } = offers[0];
 
-  const getStars = (num) => (num / MAX_STARS) * 100;
+  const [selectedPoint, setSelectedPoint] = useState(0);
+
+  const onListItemHover = (listItemName) => {
+    const currentPoint = offers.find((offer) =>
+      offer.id === listItemName,
+    );
+    setSelectedPoint(currentPoint);
+  };
 
   return (
     <div className="page">
@@ -126,7 +135,12 @@ function Offer(props) {
               </section>
             </div>
           </div>
-          <section className="property__map map"></section>
+          <section className="property__map map">
+            <Map
+              offers={offers}
+              selectedPoint={selectedPoint}
+            />
+          </section>
         </section>
         <div className="container">
           <section className="near-places places">
@@ -134,6 +148,7 @@ function Offer(props) {
             <OffersList
               page='offer'
               offers={offers}
+              onListItemHover={onListItemHover}
             />
           </section>
         </div>

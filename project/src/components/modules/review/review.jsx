@@ -1,5 +1,6 @@
 import React from 'react';
-import {MAX_STARS} from '../../../const';
+import DayJS from 'react-dayjs';
+import {getStars} from '../../../utils';
 import reviewProp from './review.prop';
 
 function Review(props) {
@@ -8,10 +9,9 @@ function Review(props) {
     id,
     comment,
     rating,
+    date,
     user: {name, avatar_url: avatarUrl},
   } = review;
-
-  const getStars = () => (rating / MAX_STARS) * 100;
 
   return (
     <li key={id} className="reviews__item">
@@ -33,7 +33,7 @@ function Review(props) {
         <p className="reviews__text">
           {comment}
         </p>
-        <time className="reviews__time" dateTime="2019-04-24">April 2019</time>
+        <DayJS className="reviews__time" dateTime={date} format="MMMM YYYY">{date}</DayJS>
       </div>
     </li>
   );
