@@ -1,23 +1,22 @@
 import React from 'react';
-import {BrowserRouter, Route, Switch} from 'react-router-dom';
-import {AppRoute} from '../../const';
-import MainPage from '../pages/main/main';
-import LoginPage from '../pages/login/login';
-import OfferPage from '../pages/offer/offer';
-import FavoritePage from '../pages/favorites/favorites';
-import NotFoundPage from '../pages/404/404';
 import PropTypes from 'prop-types';
-import offerProp from '../modules/offer/offer.prop';
-import reviewProp from '../modules/review/review.prop';
+import {BrowserRouter, Route, Switch} from 'react-router-dom';
+import {AppRoute} from 'const';
+import MainPage from 'components/pages/main/main';
+import LoginPage from 'components/pages/login/login';
+import OfferPage from 'components/pages/offer/offer';
+import FavoritePage from 'components/pages/favorites/favorites';
+import NotFoundPage from 'components/pages/404/404';
+import offerProp from 'components/modules/offer/offer.prop';
+import reviewProp from 'components/modules/review/review.prop';
 
-function App({cities, cardsCount, offers, reviews}) {
+function App({locations, offers, reviews}) {
   return (
     <BrowserRouter>
       <Switch>
         <Route path="/" exact>
           <MainPage
-            cities={cities}
-            cardsCount={cardsCount}
+            locations={locations}
             offers={offers}
           />
         </Route>
@@ -44,8 +43,7 @@ function App({cities, cardsCount, offers, reviews}) {
 }
 
 App.propTypes = {
-  cities: PropTypes.arrayOf(PropTypes.string),
-  cardsCount: PropTypes.number.isRequired,
+  locations: PropTypes.arrayOf(PropTypes.string),
   offers: PropTypes.arrayOf(offerProp).isRequired,
   reviews: PropTypes.arrayOf(reviewProp).isRequired,
 };

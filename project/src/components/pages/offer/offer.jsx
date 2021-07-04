@@ -1,11 +1,11 @@
 import React, {useState} from 'react';
-import Header from '../../modules/header/header';
-import Form from '../../modules/form/form';
-import OffersList from '../../modules/offersList/offersList';
-import ReviewList from '../../modules/reviewList/reviewList';
-import Map from '../../modules/map/map';
-import {PlaceType} from '../../../const';
-import {getStars} from '../../../utils';
+import Header from 'components/modules/header/header';
+import Form from 'components/modules/form/form';
+import OffersList from 'components/modules/offersList/offersList';
+import ReviewList from 'components/modules/reviewList/reviewList';
+import Map from 'components/modules/map/map';
+import {PlaceType} from 'const';
+import {getStars} from 'utils';
 import PropTypes from 'prop-types';
 
 function Offer(props) {

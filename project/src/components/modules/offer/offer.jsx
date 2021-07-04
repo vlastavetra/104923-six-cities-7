@@ -1,8 +1,8 @@
 import React from 'react';
 import cx from 'classnames';
 import {Link} from 'react-router-dom';
-import {PlaceType} from '../../../const';
-import {getStars} from '../../../utils';
+import {PlaceType} from 'const';
+import {getStars} from 'utils';
 import offerProp from './offer.prop';
 import PropTypes from 'prop-types';
 

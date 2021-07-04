@@ -1,14 +1,15 @@
 import React, {useState} from 'react';
 import PropTypes from 'prop-types';
-import Header from '../../modules/header/header';
-import OffersList from '../../modules/offersList/offersList';
-import Map from '../../modules/map/map';
+import {connect} from 'react-redux';
+import Header from 'components/modules/header/header';
+import OffersList from 'components/modules/offersList/offersList';
+import LocationsList from 'components/modules/locationsList/locationsList';
+import Map from 'components/modules/map/map';
 
 function Main(props) {
-  const {cities, cardsCount = 3, offers} = props;
+  const {locations, currentLocation, offers} = props;
 
-  const defaultCity = 'Amsterdam';
-  const placesCount = offers.length;
+  const offersByLocation = offers.filter((offer) => offer.city.name === currentLocation);
 
   const [selectedPoint, setSelectedPoint] = useState(0);
 
@@ -26,25 +27,17 @@ function Main(props) {
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
           <section className="locations container">
-            <ul className="locations__list tabs__list">
-              { cities.map((city) => (
-                <li className="locations__item" key={city}>
-                  <a
-                    className={city === defaultCity ? 'locations__item-link tabs__item tabs__item--active' : 'locations__item-link tabs__item'}
-                    href="#"
-                  >
-                    <span>{city}</span>
-                  </a>
-                </li>
-              )) }
-            </ul>
+            <LocationsList
+              locations={locations}
+              currentLocation={currentLocation}
+            />
           </section>
         </div>
         <div className="cities">
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">{placesCount} places to stay in Amsterdam</b>
+              <b className="places__found">{offersByLocation.length} places to stay in {currentLocation}</b>
               <form className="places__sorting" action="#" method="get">
                 <span className="places__sorting-caption">Sort by </span>
                 <span className="places__sorting-type" tabIndex="0">
@@ -62,8 +55,7 @@ function Main(props) {
               </form>
               <OffersList
                 page='main'
-                cardsCount={cardsCount}
-                offers={offers}
+                offers={offersByLocation}
                 onListItemHover={onListItemHover}
               />
             </section>
@@ -83,9 +75,14 @@ function Main(props) {
 }
 
 Main.propTypes = {
-  cities: PropTypes.arrayOf(PropTypes.string),
-  cardsCount: PropTypes.number.isRequired,
-  offers: PropTypes.arrayOf(PropTypes.object),
+  locations: PropTypes.arrayOf(PropTypes.string).isRequired,
+  currentLocation: PropTypes.string.isRequired,
+  offers: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
-export default Main;
+const mapStateToProps = ({currentLocation, offers}) => ({
+  currentLocation,
+  offers,
+});
+
+export default connect(mapStateToProps)(Main);

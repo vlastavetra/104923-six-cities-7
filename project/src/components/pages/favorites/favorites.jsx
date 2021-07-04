@@ -1,7 +1,7 @@
 import React from 'react';
-import Header from '../../modules/header/header';
-import Footer from '../../modules/footer/footer';
-import OffersList from '../../modules/offersList/offersList';
+import Header from 'components/modules/header/header';
+import Footer from 'components/modules/footer/footer';
+import OffersList from 'components/modules/offersList/offersList';
 import PropTypes from 'prop-types';
 
 function Faforites(props) {
