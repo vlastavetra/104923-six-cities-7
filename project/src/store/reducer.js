@@ -3,9 +3,11 @@ import offers from 'mocks/offers';
 import reviews from 'mocks/reviews';
 
 const DEFAULT_LOCATION = 'Paris';
+const DEFAULT_SORTING = 'Popular';
 
 const initialState = {
   currentLocation: DEFAULT_LOCATION,
+  currentSorting: DEFAULT_SORTING,
   offers,
   reviews,
 };
@@ -16,6 +18,11 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         currentLocation: action.payload,
+      };
+    case ActionType.SET_SORT:
+      return {
+        ...state,
+        currentSorting: action.payload,
       };
     default:
       return state;

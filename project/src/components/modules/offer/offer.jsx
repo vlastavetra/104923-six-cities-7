@@ -33,7 +33,11 @@ function Offer(props) {
   );
 
   return (
-    <article onMouseMove={(evt) => evt && onListItemHover(offer.id)} className={itemClasses}>
+    <article
+      onMouseMove={(evt) => evt && onListItemHover(offer.id)}
+      onMouseLeave={(evt) => evt && onListItemHover()}
+      className={itemClasses}
+    >
       { isPremium &&
         <div className="place-card__mark">
           <span>Premium</span>

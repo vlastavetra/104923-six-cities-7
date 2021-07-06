@@ -17,7 +17,6 @@ function App({locations, offers, reviews}) {
         <Route path="/" exact>
           <MainPage
             locations={locations}
-            offers={offers}
           />
         </Route>
         <Route path={AppRoute.LOGIN} exact>

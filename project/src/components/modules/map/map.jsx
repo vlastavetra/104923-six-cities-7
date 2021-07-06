@@ -23,30 +23,34 @@ const currentCustomIcon = leaflet.icon({
 });
 
 function Map(props) {
-  const {offers, selectedPoint} = props;
+  const {offers, selectedPointId} = props;
   const mapRef = useRef(null);
   const cityLocation = offers[0].city.location;
   const map = useMap(mapRef, cityLocation);
 
   useEffect(() => {
+    const layerGroup = new leaflet.LayerGroup();
+
     if (map) {
       offers.forEach((offer) => {
-        leaflet
+        const marker = leaflet
           .marker(
             {
               lat: offer.location.latitude,
               lng: offer.location.longitude,
             },
             {
-              icon: (offer.id === selectedPoint.id)
+              icon: (offer.id === selectedPointId)
                 ? currentCustomIcon
                 : defaultCustomIcon,
             },
-          )
-          .addTo(map);
+          );
+        layerGroup.addLayer(marker);
       });
+      layerGroup.addTo(map);
     }
-  }, [map, offers, selectedPoint]);
+    return () => layerGroup.removeFrom(map);
+  }, [map, offers, selectedPointId]);
 
   return (
     <div
@@ -59,7 +63,7 @@ function Map(props) {
 
 Map.propTypes = {
   offers: PropTypes.arrayOf(offerProp).isRequired,
-  selectedPoint: PropTypes.number,
+  selectedPointId: PropTypes.number,
 };
 
 export default Map;

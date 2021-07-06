@@ -33,7 +33,7 @@ function Review(props) {
         <p className="reviews__text">
           {comment}
         </p>
-        <DayJS className="reviews__time" dateTime={date} format="MMMM YYYY">{date}</DayJS>
+        <DayJS className="reviews__time" dateTime={date} format="MMMM D, YYYY">{date}</DayJS>
       </div>
     </li>
   );
