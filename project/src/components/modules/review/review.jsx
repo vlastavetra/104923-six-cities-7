@@ -1,6 +1,6 @@
 import React from 'react';
 import DayJS from 'react-dayjs';
-import {getStars} from '../../../utils';
+import {getStars} from 'utils';
 import reviewProp from './review.prop';
 
 function Review(props) {

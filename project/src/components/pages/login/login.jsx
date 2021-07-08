@@ -1,5 +1,5 @@
 import React from 'react';
-import Header from '../../modules/header/header';
+import Header from 'components/modules/header/header';
 
 function Login() {
   const pageType = 'login';

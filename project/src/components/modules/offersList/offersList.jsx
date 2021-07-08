@@ -1,7 +1,7 @@
 import React from 'react';
 import cx from 'classnames';
-import Offer from '../../modules/offer/offer';
 import PropTypes from 'prop-types';
+import Offer from 'components/modules/offer/offer';
 
 function OffersList (props) {
   const {page, offers, onListItemHover} = props;
