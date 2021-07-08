@@ -15,7 +15,7 @@ function SortForm (props) {
       className="places__sorting"
       action="#"
       method="get"
-      onClick={ () => sortList === false ? showSortList(true) : showSortList(false)}
+      onClick={ () => showSortList(!sortList)}
     >
       <span className="places__sorting-caption">Sort by </span>
       <span className="places__sorting-type" tabIndex="0">

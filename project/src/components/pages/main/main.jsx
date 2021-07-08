@@ -16,10 +16,7 @@ function Main(props) {
   const [selectedPointId, setSelectedPointId] = useState(0);
 
   const onListItemHover = (listItemId) => {
-    const currentPoint = offers.find((offer) =>
-      listItemId ? offer.id === listItemId : [],
-    );
-    setSelectedPointId(currentPoint.id);
+    setSelectedPointId(listItemId);
   };
 
   return (
