@@ -1,6 +1,5 @@
 import {ActionType} from './action';
-import offers from 'mocks/offers';
-import reviews from 'mocks/reviews';
+import {AuthorizationStatus} from 'const';
 
 const DEFAULT_LOCATION = 'Paris';
 const DEFAULT_SORTING = 'Popular';
@@ -8,8 +7,10 @@ const DEFAULT_SORTING = 'Popular';
 const initialState = {
   currentLocation: DEFAULT_LOCATION,
   currentSorting: DEFAULT_SORTING,
-  offers,
-  reviews,
+  offers: [],
+  reviews: [],
+  authorizationStatus: AuthorizationStatus.UNKNOWN,
+  isDataLoaded: false,
 };
 
 const reducer = (state = initialState, action) => {
@@ -23,6 +24,17 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         currentSorting: action.payload,
+      };
+    case ActionType.CHECK_STATUS_LOAD:
+      return {
+        ...state,
+        isDataLoaded: true,
+      };
+    case ActionType.LOAD_OFFERS:
+      return {
+        ...state,
+        offers: action.payload,
+        isDataLoaded: true,
       };
     default:
       return state;

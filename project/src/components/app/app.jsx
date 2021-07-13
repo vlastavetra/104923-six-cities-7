@@ -1,16 +1,22 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {BrowserRouter, Route, Switch} from 'react-router-dom';
+import {connect} from 'react-redux';
 import {AppRoute} from 'const';
 import MainPage from 'components/pages/main/main';
 import LoginPage from 'components/pages/login/login';
 import OfferPage from 'components/pages/offer/offer';
 import FavoritePage from 'components/pages/favorites/favorites';
 import NotFoundPage from 'components/pages/404/404';
-import offerProp from 'components/modules/offer/offer.prop';
-import reviewProp from 'components/modules/review/review.prop';
+import LoadingScreen from 'components/modules/loadingScreen/loadingScreen';
 
-function App({locations, offers, reviews}) {
+function App({locations, isDataLoaded}) {
+  if (!isDataLoaded) {
+    return (
+      <LoadingScreen />
+    );
+  }
+
   return (
     <BrowserRouter>
       <Switch>
@@ -23,15 +29,10 @@ function App({locations, offers, reviews}) {
           <LoginPage/>
         </Route>
         <Route path={AppRoute.OFFER} exact>
-          <OfferPage
-            offers={offers}
-            reviews={reviews}
-          />
+          <OfferPage/>
         </Route>
         <Route path={AppRoute.FAVORITES} exact>
-          <FavoritePage
-            offers={offers.filter((el) => el.is_favorite === true)}
-          />
+          <FavoritePage/>
         </Route>
         <Route>
           <NotFoundPage />
@@ -43,8 +44,12 @@ function App({locations, offers, reviews}) {
 
 App.propTypes = {
   locations: PropTypes.arrayOf(PropTypes.string),
-  offers: PropTypes.arrayOf(offerProp).isRequired,
-  reviews: PropTypes.arrayOf(reviewProp).isRequired,
+  isDataLoaded: PropTypes.bool.isRequired,
 };
 
-export default App;
+const mapStateToProps = ({isDataLoaded}) => ({
+  isDataLoaded,
+});
+
+export {App};
+export default connect(mapStateToProps)(App);

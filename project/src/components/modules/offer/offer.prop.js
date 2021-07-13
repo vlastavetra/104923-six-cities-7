@@ -10,7 +10,7 @@ export default PropTypes.shape({
   'goods': PropTypes.arrayOf(PropTypes.string),
   'host': PropTypes.shape({
     'avatar_url': PropTypes.string,
-    'id': PropTypes.number.isRequired,
+    'id': PropTypes.string.isRequired,
     'is_pro': PropTypes.bool,
     'name': PropTypes.string,
   }),

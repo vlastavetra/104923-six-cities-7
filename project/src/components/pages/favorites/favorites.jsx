@@ -1,16 +1,18 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import {connect} from 'react-redux';
 import Header from 'components/modules/header/header';
 import Footer from 'components/modules/footer/footer';
 import OffersList from 'components/modules/offersList/offersList';
-import PropTypes from 'prop-types';
 
 function Faforites(props) {
   const {offers} = props;
+
+  const favoriteOffers = offers.filter((offer) => offer.isFavorite === true);
+
   const cities = new Set();
 
-  offers.forEach((offer) => cities.add(offer.city.name));
-
-  const onListItemHover = () => {};
+  favoriteOffers.forEach((offer) => cities.add(offer.city.name));
 
   return (
     <div className="page">
@@ -33,7 +35,6 @@ function Faforites(props) {
                     <OffersList
                       page='favorites'
                       offers={offers.filter((el) => el.city.name === city)}
-                      onListItemHover={onListItemHover}
                     />
                   </div>
                 </li>
@@ -51,4 +52,8 @@ Faforites.propTypes = {
   offers: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
-export default Faforites;
+const mapStateToProps = ({offers}) => ({
+  offers,
+});
+
+export default connect(mapStateToProps)(Faforites);
