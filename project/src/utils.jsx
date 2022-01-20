@@ -1,3 +1,4 @@
+import {nanoid} from 'nanoid';
 import {MAX_STARS} from './const';
 
 export const getStars = (rating) => (rating / MAX_STARS) * 100;
@@ -24,4 +25,25 @@ export const sortOffers = (types, arr) => {
     default:
       return arr;
   }
+};
+
+export const adaptedOffers = (obj) => {
+
+  const arr = obj.data.map((item) =>
+    ({
+      ...item,
+      isFavorite: item.is_favorite,
+      isPremium: item.is_premium,
+      previewImage: item.preview_image,
+      maxAdults: item.max_adults,
+      host : {
+        id: nanoid(),
+        avatarUrl: item.host.avatar_url,
+        isPro: item.host.is_pro,
+        name: item.host.name,
+      },
+    }),
+  );
+
+  return arr;
 };

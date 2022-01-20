@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {sortOffers} from 'utils';
@@ -7,13 +7,18 @@ import SortForm from 'components/modules/sortForm/sortForm';
 import OffersList from 'components/modules/offersList/offersList';
 import LocationsList from 'components/modules/locationsList/locationsList';
 import Map from 'components/modules/map/map';
+import {loadOffersList} from 'store/api-actions';
 
 function Main(props) {
-  const {locations, currentLocation, currentSorting, offers} = props;
-
-  const offersByLocation = offers.filter((offer) => offer.city.name === currentLocation);
+  const {locations, currentLocation, offers, currentSorting, loadOffers} = props;
 
   const [selectedPointId, setSelectedPointId] = useState(0);
+
+  useEffect(() => {
+    loadOffers();
+  }, []);
+
+  const offersByLocation = offers.filter((offer) => offer.city.name === currentLocation);
 
   const onListItemHover = (listItemId) => {
     setSelectedPointId(listItemId);
@@ -65,7 +70,8 @@ Main.propTypes = {
   locations: PropTypes.arrayOf(PropTypes.string).isRequired,
   currentLocation: PropTypes.string.isRequired,
   currentSorting: PropTypes.string.isRequired,
-  offers: PropTypes.arrayOf(PropTypes.object).isRequired,
+  loadOffers: PropTypes.func.isRequired,
+  offers: PropTypes.array,
 };
 
 const mapStateToProps = ({currentLocation, offers, currentSorting}) => ({
@@ -74,4 +80,10 @@ const mapStateToProps = ({currentLocation, offers, currentSorting}) => ({
   offers,
 });
 
-export default connect(mapStateToProps)(Main);
+const mapDispatchToProps = (dispatch) => ({
+  loadOffers() {
+    dispatch(loadOffersList());
+  },
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Main);
